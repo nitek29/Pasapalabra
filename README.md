@@ -1,4 +1,4 @@
-# Android speech translator
+# Pasapalabra
 
 Android application for __voice recognition__, __text-to-speech__ and __text-to-speech__ translations
 
