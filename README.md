@@ -17,4 +17,4 @@ git commit -m "first part of nice feature"
 git push
 ```
 3. Create its associated `Pull Request`
-  Got [here](https://github.com/RomainCtl/android-speech-translator/compare), select `master` for __base__ and your branch name for `compare` (here feature/add_nice_feature)
+  Got [here](https://github.com/nitek29/Pasapalabra/compare), select `master` for __base__ and your branch name for `compare` (here feature/add_nice_feature)
