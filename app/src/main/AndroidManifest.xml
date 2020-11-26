@@ -19,24 +19,6 @@
         android:theme="@style/Theme.Pasapalabra">
 
         <activity
-            android:name=".TextToSpeechActivity"
-            android:screenOrientation="userLandscape"
-            android:label="@string/tts">
-        </activity>
-
-        <activity
-            android:name=".TranslatorActivity"
-            android:screenOrientation="userLandscape"
-            android:label="@string/trs">
-        </activity>
-
-        <activity
-            android:name=".SpeechToTextActivity"
-            android:screenOrientation="userLandscape"
-            android:label="@string/stt">
-        </activity>
-
-        <activity
             android:name=".PasapalabraActivity"
             android:screenOrientation="userLandscape"
             android:label="@string/app_name">
