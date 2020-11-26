@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PasapalabraActivity">
+    tools:context=".BlockActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tool_chain_list"
