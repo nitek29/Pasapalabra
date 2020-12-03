@@ -18,8 +18,8 @@ class TextToSpeechActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_text_to_speech)
 
-        val service = BlockService(this)
-        speaker = service.textToSpeech()
+       /* val service = BlockService(this)
+        speaker = service.textToSpeech()*/
 
         //cf build.gradle kotlin-android-extensions
         //cf import kotlinx.android.synthetic.main.activity_text_to_speech.*

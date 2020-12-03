@@ -15,8 +15,8 @@ class TranslatorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_translator)
 
-        val service = BlockService(this)
-        translator = service.translator(Locale.FRENCH, Locale.ENGLISH)
+        /*val service = BlockService(this)
+        translator = service.translator(Locale.FRENCH, Locale.ENGLISH)*/
 
         translate_button.setOnClickListener {
             translator.translate(edit_query.text.toString()) { enText ->

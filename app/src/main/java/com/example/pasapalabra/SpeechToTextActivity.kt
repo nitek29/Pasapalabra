@@ -27,8 +27,8 @@ class SpeechToTextActivity : AppCompatActivity() {
         }
 
 
-        val service = BlockService(this)
-        speechToText = service.speechToText()
+        //val service = BlockService(this)
+        //speechToText = service.speechToText()
 
         record_button.setOnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {

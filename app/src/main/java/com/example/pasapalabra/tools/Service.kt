@@ -1,6 +1,7 @@
 package com.example.pasapalabra.tools
 
 import android.content.Context
+import androidx.work.Worker
 import com.example.pasapalabra.tools.impl.SpeechRecognizerHandler
 import com.example.pasapalabra.tools.impl.TextToSpeechHandler
 import com.example.pasapalabra.tools.impl.TranslatorHandler
@@ -27,17 +28,17 @@ interface SpeechToTextTool {
     fun close()
 }
 
-class BlockService(val context: Context) {
+class BlockService(val worker : Worker){//val context: Context) {
 
     fun textToSpeech():TextToSpeechTool {
         val locale = Locale.getDefault()
-        return TextToSpeechHandler(context.applicationContext, locale)
+        return TextToSpeechHandler(worker.applicationContext, locale)
     }
 
     fun translator(from: Locale, to: Locale): TranslationTool =
-        TranslatorHandler(context.applicationContext, from, to)
+        TranslatorHandler(worker.applicationContext, from, to)
 
     fun speechToText(from: Locale = Locale.getDefault()): SpeechToTextTool =
-        SpeechRecognizerHandler(context.applicationContext, from)
+        SpeechRecognizerHandler(worker.applicationContext, from)
 }
 
