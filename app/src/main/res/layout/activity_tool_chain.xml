@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BlockActivity">
+    tools:context=".PasapalabraActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tool_chain_list"
@@ -13,22 +12,43 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tool_list"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/list_item_tool_chain"/>
+        tools:layout_editor_absoluteY="16dp"
+        tools:listitem="@layout/list_item_tool_chain" />
 
     <ListView
         android:id="@+id/tool_list"
-        android:layout_width="100dp"
+        android:layout_width="150dp"
         android:layout_height="match_parent"
         android:background="#888"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@android:layout/simple_list_item_1"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@android:layout/simple_list_item_1" />
 
+    <ImageButton
+        android:id="@+id/record_button"
+        android:layout_width="466dp"
+        android:layout_height="39dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tool_chain_list"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tool_chain_list"
+        app:srcCompat="@android:drawable/ic_btn_speak_now" />
 
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Veuillez sélectioner au moins deux langues. La première sera la langue d'origine."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tool_list"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tool_chain_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
