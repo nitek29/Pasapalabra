@@ -22,7 +22,7 @@
         android:id="@+id/text_box"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="#EEE"
+        android:background="#80EEEEEE"
         android:gravity="center|center_horizontal|center_vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
