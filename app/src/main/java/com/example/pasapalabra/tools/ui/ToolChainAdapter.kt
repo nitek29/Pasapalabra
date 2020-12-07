@@ -1,4 +1,4 @@
-package fr.enssat.babelblock.ui
+package com.example.pasapalabra.tools.ui
 
 import android.graphics.Color
 import android.view.LayoutInflater

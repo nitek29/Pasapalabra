@@ -1,4 +1,4 @@
-package fr.enssat.babelblock.ui
+package com.example.pasapalabra.tools.ui
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
