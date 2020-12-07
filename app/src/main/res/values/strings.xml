@@ -1,6 +1,3 @@
 <resources>
     <string name="app_name">Pasapalabra</string>
-    <string name="tts">Text To Speech</string>
-    <string name="stt">Speech To Text</string>
-    <string name="trs">Translate</string>
 </resources>
