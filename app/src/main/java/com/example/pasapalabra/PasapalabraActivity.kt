@@ -14,16 +14,14 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.example.pasapalabra.tools.BlockService
+import com.example.pasapalabra.tools.BlockServiceContext
 import com.example.pasapalabra.tools.SpeechToTextTool
-import kotlinx.android.synthetic.main.activity_speech_to_text.*
-import kotlinx.android.synthetic.main.activity_speech_to_text.record_button
+import com.example.pasapalabra.tools.ui.*
 import kotlinx.android.synthetic.main.activity_tool_chain.*
 
 class PasapalabraActivity : AppCompatActivity() {
     val handler = Handler(Looper.getMainLooper())
-
     // Liste des langues disponibles de l'application
     val languages = arrayOf<String>(
             "Afrikaans",
@@ -123,11 +121,10 @@ class PasapalabraActivity : AppCompatActivity() {
 
     lateinit var speechToText: SpeechToTextTool
     override fun onCreate(savedInstanceState: Bundle?) {
+        val service = BlockServiceContext(this)
+        speechToText = service.speechToText()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tool_chain)
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            checkPermission()
-        }
 
         // gestion permission mirophone
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
@@ -166,19 +163,18 @@ class PasapalabraActivity : AppCompatActivity() {
         // gestion bouton enregistrement message
         record_button.visibility = View.GONE
         record_button.setOnTouchListener { v, event ->
-            var stt : String
-            stt =""
             if (event.action == MotionEvent.ACTION_DOWN) {
                 Log.d("Reco UI", "Button pressed")
                 v.performClick()
                 speechToText.start(object : SpeechToTextTool.Listener {
                     override fun onResult(text: String, isFinal: Boolean) {
-                        if (isFinal) {  stt = text}
+                        if (isFinal) { viewModel.applyTranslation(text)/*stt = text*/}
                     }
                 })
             } else if (event.action == MotionEvent.ACTION_UP) {
                 Log.d("Reco UI", "Button releases")
-                viewModel.applyTranslation(stt)
+                speechToText.stop()
+                //viewModel.applyTranslation(stt)
 
 
             }

@@ -1,6 +1,7 @@
 package com.example.pasapalabra
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.work.*
@@ -69,6 +70,7 @@ class PasapalabraViewModel(application: Application) : AndroidViewModel(applicat
      * Create the WorkRequest to apply the translation
      */
     internal fun applyTranslation(text :String) {
+        Log.d("ApplyTranslation", "Create workmanager")
         // Add WorkRequest to Cleanup temporary images
         var continuation = workManager
                 .beginUniqueWork(
@@ -95,7 +97,7 @@ class PasapalabraViewModel(application: Application) : AndroidViewModel(applicat
 
         // Actually start the work
         continuation.enqueue()
-
+        Log.d("ApplyTranslation", "Start WorkManager")
 
     }
 }

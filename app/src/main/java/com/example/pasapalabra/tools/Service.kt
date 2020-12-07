@@ -42,3 +42,16 @@ class BlockService(val worker : Worker){//val context: Context) {
         SpeechRecognizerHandler(worker.applicationContext, from)
 }
 
+class BlockServiceContext(val context: Context) {
+
+    fun textToSpeech():TextToSpeechTool {
+        val locale = Locale.getDefault()
+        return TextToSpeechHandler(context.applicationContext, locale)
+    }
+
+    fun translator(from: Locale, to: Locale): TranslationTool =
+            TranslatorHandler(context.applicationContext, from, to)
+
+    fun speechToText(from: Locale = Locale.getDefault()): SpeechToTextTool =
+            SpeechRecognizerHandler(context.applicationContext, from)
+}

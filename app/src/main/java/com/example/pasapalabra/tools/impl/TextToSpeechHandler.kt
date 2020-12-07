@@ -7,13 +7,16 @@ import java.util.*
 
 class TextToSpeechHandler(context: Context, val locale: Locale): TextToSpeechTool {
 
+
     private val speaker = TextToSpeech(context, object: TextToSpeech.OnInitListener {
         override fun onInit(status: Int) {
             Log.d("Speak", "status: $status")
         }
     })
 
+
     override fun speak(text: String) {
+        Log.d("TTS handler","test $text")
         speaker.language = locale
         speaker.speak(text, TextToSpeech.QUEUE_FLUSH, null)
     }

@@ -27,6 +27,7 @@ class TranslatorHandler(context: Context, from: Locale, to: Locale): Translation
     }
 
     override fun translate(text: String, callback: (String) -> Unit) {
+        //Log.d("Translator handler", "Translate handler "+text)
         translator.translate(text)
             .addOnSuccessListener(callback)
             .addOnFailureListener { e -> Log.e("Translation", "Translation falied", e) }

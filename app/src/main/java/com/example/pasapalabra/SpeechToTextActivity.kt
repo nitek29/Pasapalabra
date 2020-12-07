@@ -1,4 +1,4 @@
-package com.example.pasapalabra
+/*package com.example.pasapalabra
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -65,4 +65,4 @@ class SpeechToTextActivity : AppCompatActivity() {
     }
 
 
-}
+}*/
