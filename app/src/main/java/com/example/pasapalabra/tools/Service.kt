@@ -5,6 +5,7 @@ import androidx.work.Worker
 import com.example.pasapalabra.tools.impl.SpeechRecognizerHandler
 import com.example.pasapalabra.tools.impl.TextToSpeechHandler
 import com.example.pasapalabra.tools.impl.TranslatorHandler
+import com.google.android.gms.tasks.Task
 
 import java.util.Locale
 

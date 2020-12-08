@@ -3,6 +3,8 @@ package com.example.pasapalabra.tools.impl
 import android.content.Context
 import android.util.Log
 import com.example.pasapalabra.tools.TranslationTool
+import com.google.android.gms.tasks.Task
+import com.google.android.gms.tasks.Tasks
 import com.google.mlkit.common.model.DownloadConditions
 import com.google.mlkit.nl.translate.Translation
 import com.google.mlkit.nl.translate.TranslatorOptions
@@ -28,9 +30,12 @@ class TranslatorHandler(context: Context, from: Locale, to: Locale): Translation
 
     override fun translate(text: String, callback: (String) -> Unit) {
         //Log.d("Translator handler", "Translate handler "+text)
-        translator.translate(text)
+
+        var res : Task<String>
+        res =translator.translate(text)
             .addOnSuccessListener(callback)
             .addOnFailureListener { e -> Log.e("Translation", "Translation falied", e) }
+        Tasks.await(res)
     }
 
     override fun close() {

@@ -16,7 +16,7 @@ class TextToSpeechWorker (ctx: Context, params: WorkerParameters) : Worker(ctx, 
         Log.d("TTS Worker", "Start TTS Worker")
         val appContext = applicationContext
         val tt = inputData.getString(KEY_TT)
-        Log.d("TTS Worker", "translation text "+tt)
+        Log.d("TTS Worker", "translation text  :$tt")
 
         lateinit var speaker: TextToSpeechTool
         val service = BlockService(this)
