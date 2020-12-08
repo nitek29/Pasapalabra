@@ -7,9 +7,11 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.example.pasapalabra.KEY_TT
 import com.example.pasapalabra.tools.BlockService
+import com.example.pasapalabra.tools.BlockServiceContext
 import com.example.pasapalabra.tools.TextToSpeechTool
 import kotlinx.android.synthetic.main.activity_text_to_speech.*
 import timber.log.Timber
+import java.util.logging.Handler
 
 class TextToSpeechWorker (ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
     override fun doWork(): Result {
@@ -19,7 +21,8 @@ class TextToSpeechWorker (ctx: Context, params: WorkerParameters) : Worker(ctx, 
         Log.d("TTS Worker", "translation text  :$tt")
 
         lateinit var speaker: TextToSpeechTool
-        val service = BlockService(this)
+        val service = BlockServiceContext(appContext)
+
         speaker = service.textToSpeech()
 
         return try {

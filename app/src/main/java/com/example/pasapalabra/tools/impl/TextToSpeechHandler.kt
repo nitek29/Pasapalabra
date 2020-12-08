@@ -4,25 +4,30 @@ import android.speech.tts.TextToSpeech
 import android.util.Log
 import com.example.pasapalabra.tools.TextToSpeechTool
 import com.google.android.gms.tasks.Task
+import java.lang.Thread.sleep
 import java.util.*
 
 class TextToSpeechHandler(context: Context, val locale: Locale): TextToSpeechTool {
-
-    private val speaker = TextToSpeech(context, object: TextToSpeech.OnInitListener {
+    private val flag : Boolean = false
+    private val tss : Tss = Tss(locale)
+    private val speaker : TextToSpeech = TextToSpeech(context,tss)
+    /*private val speaker = TextToSpeech(context, object: TextToSpeech.OnInitListener {
 
         override fun onInit(status: Int) {
             Log.d("Speak", "OnInit")
             if (status == TextToSpeech.SUCCESS) {
                 Log.d("Speak", "status: $status")
-
             }else{
                 Log.e("TTS", "Initilization Failed!")
             }
         }
-    })
+    })*/
 
 
     override fun speak(text: String) {
+        while ( !tss.flag) {
+            sleep(1500)
+        }
         Log.d("TTS handler","speak function $text")
         speaker.language = locale
         speaker.speak(text, TextToSpeech.QUEUE_FLUSH, null)
@@ -34,5 +39,19 @@ class TextToSpeechHandler(context: Context, val locale: Locale): TextToSpeechToo
 
     override fun close() {
         speaker.shutdown()
+    }
+}
+
+class Tss( lang :Locale) : TextToSpeech.OnInitListener{
+    var flag : Boolean =false
+    override fun onInit(status: Int) {
+        Log.d("Speak", "OnInit")
+        if (status == TextToSpeech.SUCCESS) {
+            Log.d("Speak", "status: $status")
+            this.flag =true
+
+        }else{
+            Log.e("TTS", "Initilization Failed!")
+        }
     }
 }
