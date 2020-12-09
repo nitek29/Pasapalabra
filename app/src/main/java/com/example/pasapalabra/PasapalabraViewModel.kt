@@ -5,14 +5,17 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.work.*
+import com.example.pasapalabra.tools.ui.ToolChain
 import com.example.pasapalabra.workers.SpeechRecognizerWorker
 import com.example.pasapalabra.workers.TextToSpeechWorker
 import com.example.pasapalabra.workers.TranslatorWorker
+import com.google.mlkit.nl.translate.TranslateLanguage
 
 class PasapalabraViewModel(application: Application) : AndroidViewModel(application) {
     internal var stt: String? = null
     internal var tt: String? = null
     internal var recognizer: String? = null
+    internal  var lang_number : Int = 0
     private val workManager = WorkManager.getInstance(application)
     internal val outputWorkInfos: LiveData<List<WorkInfo>>
 
@@ -31,10 +34,18 @@ class PasapalabraViewModel(application: Application) : AndroidViewModel(applicat
      * Creates the input data bundle which includes the STRING to operate on
      * @return Data which contains the Speech to Text as a String
      */
-    private fun createSTTInputData(): Data {
+    private fun createSTTInputData(language_src : String,language_dest : String, pos :Int): Data {
         val builder = Data.Builder()
         stt?.let {
             builder.putString(KEY_STT, stt)
+        }
+
+        builder.putString("LANG_SRC", language_src)
+        if (pos == this.lang_number-2){
+            builder.putString("LANG_OUT", language_dest)
+            builder.putString("LANG_DST", "")
+        }else {
+            builder.putString("LANG_DST", language_dest)
         }
         return builder.build()
     }
@@ -69,7 +80,7 @@ class PasapalabraViewModel(application: Application) : AndroidViewModel(applicat
     /**
      * Create the WorkRequest to apply the translation
      */
-    internal fun applyTranslation(text :String) {
+    internal fun applyTranslation(text :String, languages : ToolChain ) {
         Log.d("ApplyTranslation", "Create workmanager")
         // Add WorkRequest to Cleanup temporary images
         var continuation = workManager
@@ -80,12 +91,16 @@ class PasapalabraViewModel(application: Application) : AndroidViewModel(applicat
                         //OneTimeWorkRequest.from(SpeechRecognizerWorker::class.java)
 
                 )
+        this.lang_number = languages.size
+        for ( i in 0 until this.lang_number -1){
 
-        val translatorBuilder = OneTimeWorkRequestBuilder<TranslatorWorker>()
-                .addTag(TAG_TRANSLATOR)
-        translatorBuilder.setInputData(createSTTInputData())
+            val translatorBuilder = OneTimeWorkRequestBuilder<TranslatorWorker>()
+                    .addTag(TAG_TRANSLATOR)
+            translatorBuilder.setInputData(createSTTInputData(languages.get(i).code,languages.get(i+1).code,i))
 
-        continuation = continuation.then(translatorBuilder.build())
+            continuation = continuation.then(translatorBuilder.build())
+        }
+
 
         // Add WorkRequest to launch TextToSpeech
 

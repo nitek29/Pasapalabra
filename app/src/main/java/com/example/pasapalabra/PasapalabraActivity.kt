@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.work.Data
 import com.example.pasapalabra.tools.BlockService
 import com.example.pasapalabra.tools.BlockServiceContext
 import com.example.pasapalabra.tools.SpeechToTextTool
@@ -23,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_tool_chain.*
 class PasapalabraActivity : AppCompatActivity() {
     val handler = Handler(Looper.getMainLooper())
     // Liste des langues disponibles de l'application
-    val languages = arrayOf<String>(
+    /*val languages = arrayOf<String>(
             "Afrikaans",
             "Allemand",
             "Anglais",
@@ -98,15 +99,16 @@ class PasapalabraActivity : AppCompatActivity() {
             "Urdu",
             "Vietnamien",
             "Yucatec Maya"
-    )
+    )*/
 
     private lateinit var viewModel : PasapalabraViewModel
     private val RecordAudioRequestCode = 1
 
     private fun getTool(ind: Int, language: String) =
             object : ToolDisplay {
-                override var title  = languages[ind]
+                override var title  = ArrayList(LANGUAGES.values)[ind]
                 override var output = ""
+                override var code = ArrayList(LANGUAGES.keys)[ind]
                 override var input  = "Langue $language"
                 override val tool   = object : Tool {
                     //override run method of Tool interface
@@ -120,9 +122,30 @@ class PasapalabraActivity : AppCompatActivity() {
             }
 
     lateinit var speechToText: SpeechToTextTool
+
+    /**
+     * Creates the input data bundle which includes the STRING to operate on
+     * @return Data which contains the Speech to text to as a String
+     */
+   /* private fun createLanguagesInputData(languages: ToolChain) : Data {
+        val builder = Data.Builder()
+
+        for (i in 0..languages.size ){
+            if (i==0){
+                builder.putString(KEY_SRC, languages.get(i).title)
+            }else if (i== languages.size){
+                builder.putString(KEY_TARGET, languages.get(i).title)
+            }else{
+                builder.putString("L$i", languages.get(i).title)
+            }
+        }
+        return builder.build()
+    }*/
+
     override fun onCreate(savedInstanceState: Bundle?) {
         val service = BlockServiceContext(this)
         speechToText = service.speechToText()
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tool_chain)
 
@@ -148,7 +171,7 @@ class PasapalabraActivity : AppCompatActivity() {
 
         //see tool_list in activity_tool_chain.xml
         //simple list of ids
-        tool_list.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, languages)
+        tool_list.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, ArrayList(LANGUAGES.values))
         tool_list.setOnItemClickListener { _, _, position, _ ->
             if (toolChain.size == 0) {
                 toolChain.add(getTool(position, "source"))
@@ -160,15 +183,19 @@ class PasapalabraActivity : AppCompatActivity() {
                 toolChain.add(getTool(position, "cible"))
             }
         }
+
         // gestion bouton enregistrement message
         record_button.visibility = View.GONE
         record_button.setOnTouchListener { v, event ->
+            //createLanguagesInputData(toolChain)
             if (event.action == MotionEvent.ACTION_DOWN) {
                 Log.d("Reco UI", "Button pressed")
                 v.performClick()
                 speechToText.start(object : SpeechToTextTool.Listener {
                     override fun onResult(text: String, isFinal: Boolean) {
-                        if (isFinal) { viewModel.applyTranslation(text)/*stt = text*/}
+                        if (isFinal) {
+                            viewModel.applyTranslation(text,toolChain)
+                        }
                     }
                 })
             } else if (event.action == MotionEvent.ACTION_UP) {

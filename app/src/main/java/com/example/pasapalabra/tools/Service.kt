@@ -45,8 +45,9 @@ class BlockService(val worker : Worker){//val context: Context) {
 
 class BlockServiceContext(val context: Context) {
 
-    fun textToSpeech():TextToSpeechTool {
-        val locale = Locale.getDefault()
+    fun textToSpeech(lang : String):TextToSpeechTool {
+        //val locale = Locale.getDefault()
+        val locale = Locale(lang)
         return TextToSpeechHandler(context.applicationContext, locale)
     }
 

@@ -19,11 +19,12 @@ class TextToSpeechWorker (ctx: Context, params: WorkerParameters) : Worker(ctx, 
         val appContext = applicationContext
         val tt = inputData.getString(KEY_TT)
         Log.d("TTS Worker", "translation text  :$tt")
+        val langOut : String = inputData.getString("LANG_OUT").toString()
 
         lateinit var speaker: TextToSpeechTool
         val service = BlockServiceContext(appContext)
 
-        speaker = service.textToSpeech()
+        speaker = service.textToSpeech(langOut)
 
         return try {
             if (TextUtils.isEmpty(tt)) {
