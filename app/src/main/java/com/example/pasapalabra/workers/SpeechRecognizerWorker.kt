@@ -24,8 +24,8 @@ class SpeechRecognizerWorker (ctx: Context, params: WorkerParameters) : Worker(c
         //speechToText = service.speechToText()
 
         return try {
-            var output : String;
-            output = inputData.getString(KEY_RECO).toString();
+
+            var output : String = inputData.getString(KEY_RECO).toString();
             Log.d("STT Worker", "stt text ="+output)
 
             //speechToText.stop()

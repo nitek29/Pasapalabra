@@ -23,9 +23,10 @@ class TranslatorHandler(context: Context, from: Locale, to: Locale): Translation
                                 .requireWifi()
                                 .build()
 
-    init {  translator.downloadModelIfNeeded(conditions)
+    init { var res =translator.downloadModelIfNeeded(conditions)
                 .addOnSuccessListener { Log.d("Translation", "download completed") }
                 .addOnFailureListener { e -> Log.e("Translation", "Download failed ", e) }
+        Tasks.await(res)
     }
 
     override fun translate(text: String, callback: (String) -> Unit) {

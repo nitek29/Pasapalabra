@@ -5,7 +5,10 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import androidx.work.workDataOf
+import com.example.pasapalabra.KEY_STT
 import com.example.pasapalabra.KEY_TT
+import com.example.pasapalabra.KEY_TTS
 import com.example.pasapalabra.tools.BlockService
 import com.example.pasapalabra.tools.BlockServiceContext
 import com.example.pasapalabra.tools.TextToSpeechTool
@@ -20,6 +23,7 @@ class TextToSpeechWorker (ctx: Context, params: WorkerParameters) : Worker(ctx, 
         val tt = inputData.getString(KEY_TT)
         Log.d("TTS Worker", "translation text  :$tt")
         val langOut : String = inputData.getString("LANG_OUT").toString()
+        Log.d("TTS Worker", "translation text lang   :$langOut")
 
         lateinit var speaker: TextToSpeechTool
         val service = BlockServiceContext(appContext)
@@ -38,8 +42,9 @@ class TextToSpeechWorker (ctx: Context, params: WorkerParameters) : Worker(ctx, 
 
             val text = tt.toString()
             speaker.speak(text)
-
-            Result.success()
+            var outputData = workDataOf(KEY_TTS to tt)
+            //speaker.close()
+            Result.success(outputData)
         } catch (throwable: Throwable) {
             Timber.e(throwable, "Error applying blur")
             Result.failure()

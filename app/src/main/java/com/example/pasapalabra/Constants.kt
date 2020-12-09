@@ -16,13 +16,13 @@ const val NOTIFICATION_ID = 1
 const val PASAPALABRA_WORK_NAME = "pasapalabra_work"
 
 // Others keys
+const val TAG_STT = "STT"
 const val TAG_TRANSLATOR = "TRANSLATOR"
 const val TAG_OUTPUT = "OUTPUT"
 const val KEY_STT = "KEY_STT"
 const val  KEY_TT = "KEY_TT"
 const val  KEY_RECO = "KEY_RECO"
-const val KEY_SRC = "KEY_SRC"
-const val KEY_TARGET = "KEY_TARGET"
+const val KEY_TTS = "KEY_TTS"
 
 val LANGUAGES = mapOf<String,String>(
                 "af" to	"Afrikaans",
@@ -43,13 +43,13 @@ val LANGUAGES = mapOf<String,String>(
                 "da" to "Danish",
                 "de" to "German",
                 "el" to "Greek",
-                "el-Latn" to "Greek",
+                "el-Latn" to "Greek", //bug
                 "en" to "English",
                 "eo" to "Esperanto",
                 "es" to "Spanish",
                 "et" to "Estonian",
                 "eu" to "Basque",
-                "fa" to "Persian",
+                "fa" to "Persian", ///bug
                 "fi" to "Finnish",
                 "fil" to "Filipino",
                 "fr"  to "French",

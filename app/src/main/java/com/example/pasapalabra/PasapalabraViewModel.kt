@@ -17,13 +17,17 @@ class PasapalabraViewModel(application: Application) : AndroidViewModel(applicat
     internal var recognizer: String? = null
     internal  var lang_number : Int = 0
     private val workManager = WorkManager.getInstance(application)
-    internal val outputWorkInfos: LiveData<List<WorkInfo>>
+    internal val outputWorkInfosSTT: LiveData<List<WorkInfo>>
+    internal val outputWorkInfosTT: LiveData<List<WorkInfo>>
+    internal val outputWorkInfosTTS: LiveData<List<WorkInfo>>
 
     // Add an init block to the PasapalabraViewModel class
     init {
         // This transformation makes sur that whenever the current work ID changes the WorkInfo
         // the UI is listening to changes
-        outputWorkInfos = workManager.getWorkInfosByTagLiveData(TAG_OUTPUT)
+        outputWorkInfosSTT = workManager.getWorkInfosByTagLiveData(TAG_STT)
+        outputWorkInfosTT = workManager.getWorkInfosByTagLiveData(TAG_TRANSLATOR)
+        outputWorkInfosTTS = workManager.getWorkInfosByTagLiveData(TAG_OUTPUT)
     }
 
     internal fun cancelWork() {
@@ -54,11 +58,12 @@ class PasapalabraViewModel(application: Application) : AndroidViewModel(applicat
      * Creates the input data bundle which includes the STRING to operate on
      * @return Data which contains the Text translation to as a String
      */
-    private fun createTTInputData(): Data {
+    private fun createTTInputData(langout : String): Data {
         val builder = Data.Builder()
         tt?.let {
             builder.putString(KEY_TT, tt)
         }
+        builder.putString("LANG_OUT", langout)
         return builder.build()
     }
 
@@ -74,7 +79,7 @@ class PasapalabraViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     private fun  speechToTextWork(text: String) : OneTimeWorkRequest {
-        return OneTimeWorkRequest.Builder(SpeechRecognizerWorker::class.java).setInputData(createRecognizerInputData(text)).build();
+        return OneTimeWorkRequest.Builder(SpeechRecognizerWorker::class.java).addTag(TAG_STT).setInputData(createRecognizerInputData(text)).build();
     }
 
     /**
@@ -91,6 +96,7 @@ class PasapalabraViewModel(application: Application) : AndroidViewModel(applicat
                         //OneTimeWorkRequest.from(SpeechRecognizerWorker::class.java)
 
                 )
+
         this.lang_number = languages.size
         for ( i in 0 until this.lang_number -1){
 
@@ -106,7 +112,7 @@ class PasapalabraViewModel(application: Application) : AndroidViewModel(applicat
 
         val textToSpeechBuilder = OneTimeWorkRequestBuilder<TextToSpeechWorker>()
                 .addTag(TAG_OUTPUT)
-                .setInputData(createTTInputData())
+                .setInputData(createTTInputData(languages.get(this.lang_number-1).code))
                 .build()
         continuation = continuation.then(textToSpeechBuilder)
 
@@ -115,4 +121,6 @@ class PasapalabraViewModel(application: Application) : AndroidViewModel(applicat
         Log.d("ApplyTranslation", "Start WorkManager")
 
     }
+
+
 }
