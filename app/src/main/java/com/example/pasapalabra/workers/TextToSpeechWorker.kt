@@ -36,10 +36,6 @@ class TextToSpeechWorker (ctx: Context, params: WorkerParameters) : Worker(ctx, 
                 Timber.e("Invalid input tt")
                 throw IllegalArgumentException("Invalid input tt ")
             }
-            //cf build.gradle kotlin-android-extensions
-            //cf import kotlinx.android.synthetic.main.activity_text_to_speech.*
-            //say goodbye to findviewbyid, recovering and binding view from layout
-
 
             val text = tt.toString()
             speaker.speak(text)
@@ -48,8 +44,8 @@ class TextToSpeechWorker (ctx: Context, params: WorkerParameters) : Worker(ctx, 
             }while(speaker.isSpeaking())
             speaker.stop()
             speaker.close()
-            var outputData = workDataOf(KEY_TTS to tt)
-            //speaker.close()
+            val outputData = workDataOf(KEY_TTS to tt)
+
             Result.success(outputData)
         } catch (throwable: Throwable) {
             Timber.e(throwable, "Error applying blur")

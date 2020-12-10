@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.list_item_tool_chain.view.*
 class ToolChainAdapter(val toolChain: ToolChain) : RecyclerView.Adapter<ToolChainAdapter.ToolViewHolder>(), ItemMoveAdapter {
 
     init {
-        //notifyDataSetChanged() = redraw, the data set has changed
         toolChain.setOnChangeListener { notifyDataSetChanged() }
     }
 

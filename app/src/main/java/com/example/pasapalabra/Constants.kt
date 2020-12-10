@@ -43,13 +43,10 @@ val LANGUAGES = mapOf<String,String>(
                 "da" to "Danish",
                 "de" to "German",
                 "el" to "Greek",
-                "el-Latn" to "Greek", //bug
                 "en" to "English",
                 "eo" to "Esperanto",
                 "es" to "Spanish",
                 "et" to "Estonian",
-                "eu" to "Basque",
-                "fa" to "Persian", ///bug
                 "fi" to "Finnish",
                 "fil" to "Filipino",
                 "fr"  to "French",

@@ -55,25 +55,6 @@ class PasapalabraActivity : AppCompatActivity() {
 
     lateinit var speechToText: SpeechToTextTool
 
-    /**
-     * Creates the input data bundle which includes the STRING to operate on
-     * @return Data which contains the Speech to text to as a String
-     */
-    /* private fun createLanguagesInputData(languages: ToolChain) : Data {
-         val builder = Data.Builder()
-
-         for (i in 0..languages.size ){
-             if (i==0){
-                 builder.putString(KEY_SRC, languages.get(i).title)
-             }else if (i== languages.size){
-                 builder.putString(KEY_TARGET, languages.get(i).title)
-             }else{
-                 builder.putString("L$i", languages.get(i).title)
-             }
-         }
-         return builder.build()
-     }*/
-
     override fun onCreate(savedInstanceState: Bundle?) {
         val service = BlockServiceContext(this)
         //speechToText = service.speechToText()
@@ -157,10 +138,6 @@ class PasapalabraActivity : AppCompatActivity() {
             false
         }
 
-        /*for (tc in 0 until toolChain.size-1){
-            toolChain.get(tc).output= KEY_TT
-        }*/
-
         // Get the ViewModel
         viewModel = ViewModelProvider(this).get(PasapalabraViewModel::class.java)
 
@@ -178,15 +155,9 @@ class PasapalabraActivity : AppCompatActivity() {
                 return@Observer
             }
 
-            // We only care about the one output status.
-            // Every continuation has only one worker tagged TAG_OUTPUT
-            //val workInfo = listOfWorkInfo[0]
-
             for (workInfo in listOfWorkInfo.indices) {
                 var pos = 0
                 if (listOfWorkInfo[workInfo].state.isFinished) {
-                    //showWorkFinished()
-
                     // Normally this processing, which is not directly related to drawing views on
                     // screen would be in the ViewModel. For simplicity we are keeping it here.
                     var outputImageUri: String? = ""
@@ -213,43 +184,7 @@ class PasapalabraActivity : AppCompatActivity() {
                             }
                         }
                     }
-
-
-                    // If there is an output file show "See File" button
-
                     tool_chain_list.adapter = this.tool_chain_list_adapter
-            }
-        }
-    }
-
-    private fun workInfosObserver2(toolchain: ToolChain, pos: Int): Observer<List<WorkInfo>> {
-        return Observer { listOfWorkInfo ->
-
-            // Note that these next few lines grab a single WorkInfo if it exists
-            // This code could be in a Transformation in the ViewModel; they are included here
-            // so that the entire process of displaying a WorkInfo is in one location.
-
-            // If there are no matching work info, do nothing
-            if (listOfWorkInfo.isNullOrEmpty()) {
-                return@Observer
-            }
-
-            // We only care about the one output status.
-            // Every continuation has only one worker tagged TAG_OUTPUT
-            val workInfo = listOfWorkInfo[0]
-
-            if (workInfo.state.isFinished) {
-
-                // Normally this processing, which is not directly related to drawing views on
-                // screen would be in the ViewModel. For simplicity we are keeping it here.
-                val outputImageUri = workInfo.outputData.getString(KEY_STT)
-
-                // If there is an output file show "See File" button
-                if (!outputImageUri.isNullOrEmpty()) {
-                    toolchain.get(pos + 1).output = outputImageUri
-                    Log.d("Activity", "TAG : $pos\t workinfo :${pos + 1} \toutput : ${outputImageUri} \t lang ${toolchain.get(pos + 1).title}\t output : ${toolchain.get(pos + 1).output} ")
-                }
-                tool_chain_list.adapter = this.tool_chain_list_adapter
             }
         }
     }
