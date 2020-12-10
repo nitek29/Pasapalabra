@@ -75,7 +75,6 @@ class TranslatorWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, par
             }
 
             Log.d("Translator Worker", "Translation result " + this.translated)
-            //Log.d("Translator Worker", "Translation flag output is ${this.tts_flag}")
             translator.close()
             outputData = if (this.tts_flag) {
                 workDataOf(KEY_TT to this.translated)
