@@ -5,10 +5,9 @@ import android.os.Build
 import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.ViewModelProvider
 import androidx.work.*
-import com.example.pasapalabra.KEY_RECO
-import com.example.pasapalabra.KEY_STT
-import com.example.pasapalabra.KEY_TT
+import com.example.pasapalabra.*
 import com.example.pasapalabra.R
 import com.example.pasapalabra.tools.BlockService
 import com.example.pasapalabra.tools.BlockServiceContext
@@ -27,11 +26,9 @@ import javax.security.auth.callback.Callback
 import kotlin.collections.HashMap
 import kotlin.system.exitProcess
 
-class TranslatorWorker (ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
-    private var translated : String?=null
-    private var tts_flag : Boolean = false
-
-
+class TranslatorWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
+    private var translated: String? = null
+    private var tts_flag: Boolean = false
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun doWork(): Result {
@@ -41,11 +38,11 @@ class TranslatorWorker (ctx: Context, params: WorkerParameters) : Worker(ctx, pa
         val appContext = applicationContext
         lateinit var translator: TranslationTool
         val stt = inputData.getString(KEY_STT)
-        Log.d("Translator Worker", "stt ="+stt)
+        Log.d("Translator Worker", "stt =$stt")
 
         val src = inputData.getString("LANG_SRC")
         var dst = inputData.getString("LANG_DST")
-        if (dst==""){
+        if (dst == "") {
             this.tts_flag = true
             dst = inputData.getString("LANG_OUT")
             Log.d("Translator Worker", "Lang output : $dst")
@@ -59,31 +56,33 @@ class TranslatorWorker (ctx: Context, params: WorkerParameters) : Worker(ctx, pa
         translator = service.translator(Locale(src), Locale(dst))
         sleep(1500)
 
-        val outputData : Data
+        val outputData: Data
 
-       return try {
+        return try {
 
             if (TextUtils.isEmpty(stt)) {
                 Timber.e("Invalid input stt")
                 throw IllegalArgumentException("Invalid input stt")
             }
-
+            var tt: String? = null
             translator.translate(stt.toString()) { enText ->
-                this.translated=enText
+                this.translated = enText
+                tt = enText
+            }
+            sleep(1000)
+            if (this.translated.isNullOrEmpty()) {
+                this.translated = tt
             }
 
-            //this.translated = this.translator(stt.toString())
-
-           Log.d("Translator Worker", "Translation result "+this.translated)
-           //Log.d("Translator Worker", "Translation flag output is ${this.tts_flag}")
-
-
-           outputData = if (this.tts_flag){
-               workDataOf(KEY_TT to this.translated)
-           }else {
-               workDataOf(KEY_STT to this.translated)
-           }
+            Log.d("Translator Worker", "Translation result " + this.translated)
+            //Log.d("Translator Worker", "Translation flag output is ${this.tts_flag}")
             translator.close()
+            outputData = if (this.tts_flag) {
+                workDataOf(KEY_TT to this.translated)
+            } else {
+                workDataOf(KEY_STT to this.translated)
+            }
+
             Result.success(outputData)
         } catch (throwable: Throwable) {
             Timber.e(throwable, "Error applying blur")

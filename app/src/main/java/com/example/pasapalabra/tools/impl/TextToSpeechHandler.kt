@@ -44,6 +44,10 @@ class TextToSpeechHandler(context: Context, val locale: Locale): TextToSpeechToo
     override fun close() {
         speaker.shutdown()
     }
+
+    override fun isSpeaking(): Boolean {
+        return speaker.isSpeaking
+    }
 }
 
 class Tss() : TextToSpeech.OnInitListener{

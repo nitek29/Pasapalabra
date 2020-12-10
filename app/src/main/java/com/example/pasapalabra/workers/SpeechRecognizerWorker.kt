@@ -34,7 +34,7 @@ class SpeechRecognizerWorker (ctx: Context, params: WorkerParameters) : Worker(c
 
 
         } catch (throwable: Throwable) {
-            Timber.e(throwable, "Error applying blur")
+            Timber.e(throwable, "Error applying stt")
             Result.failure()
     }
 

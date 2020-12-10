@@ -14,6 +14,7 @@ import com.example.pasapalabra.tools.BlockServiceContext
 import com.example.pasapalabra.tools.TextToSpeechTool
 import kotlinx.android.synthetic.main.activity_text_to_speech.*
 import timber.log.Timber
+import java.lang.Thread.sleep
 import java.util.logging.Handler
 
 class TextToSpeechWorker (ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
@@ -42,6 +43,11 @@ class TextToSpeechWorker (ctx: Context, params: WorkerParameters) : Worker(ctx, 
 
             val text = tt.toString()
             speaker.speak(text)
+            do{
+                sleep(1000)
+            }while(speaker.isSpeaking())
+            speaker.stop()
+            speaker.close()
             var outputData = workDataOf(KEY_TTS to tt)
             //speaker.close()
             Result.success(outputData)

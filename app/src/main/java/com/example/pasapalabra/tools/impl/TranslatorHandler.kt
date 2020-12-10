@@ -35,7 +35,7 @@ class TranslatorHandler(context: Context, from: Locale, to: Locale): Translation
         var res : Task<String>
         res =translator.translate(text)
             .addOnSuccessListener(callback)
-            .addOnFailureListener { e -> Log.e("Translation", "Translation falied", e) }
+            .addOnFailureListener { e -> Log.e("Translation", "Translation failed", e) }
         Tasks.await(res)
     }
 

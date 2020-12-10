@@ -13,6 +13,7 @@ interface TextToSpeechTool {
     fun speak(text: String)
     fun stop()
     fun close()
+    fun isSpeaking(): Boolean
 }
 
 interface TranslationTool {
