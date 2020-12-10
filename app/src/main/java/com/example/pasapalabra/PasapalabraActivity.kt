@@ -35,12 +35,12 @@ class PasapalabraActivity : AppCompatActivity() {
     private var tool_chain_list_adapter = ToolChainAdapter(this.toolChain)
     lateinit var tool_list_adapter: ListAdapter
 
-    private fun getTool(ind: Int, language: String) =
+    private fun getTool(ind: Int) =
             object : ToolDisplay {
                 override var title = ArrayList(LANGUAGES.values)[ind]
                 override var output = ""
                 override var code = ArrayList(LANGUAGES.keys)[ind]
-                override var input = "Langue $language"
+                override var input = ""
                 override val tool = object : Tool {
                     //override run method of Tool interface
                     override fun run(input: String, output: (String) -> Unit) {
@@ -108,13 +108,13 @@ class PasapalabraActivity : AppCompatActivity() {
         this.tool_list_adapter = tool_list.adapter
         tool_list.setOnItemClickListener { _, _, position, _ ->
             if (toolChain.size == 0) {
-                toolChain.add(getTool(position, "source"))
+                toolChain.add(getTool(position))
             } else if (toolChain.size == 1) {
                 description.visibility = View.GONE
                 record_button.visibility = View.VISIBLE
-                toolChain.add(getTool(position, "cible"))
+                toolChain.add(getTool(position))
             } else {
-                toolChain.add(getTool(position, "cible"))
+                toolChain.add(getTool(position))
             }
         }
 
