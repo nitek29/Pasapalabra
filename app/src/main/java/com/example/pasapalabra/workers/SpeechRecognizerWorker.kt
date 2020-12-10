@@ -15,13 +15,8 @@ import org.w3c.dom.Text
 import timber.log.Timber
 
 class SpeechRecognizerWorker (ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
-    lateinit var speechToText: SpeechToTextTool
     override fun doWork(): Result {
         Log.d("STT Worker", "Start STT Worker")
-        val appContext = applicationContext
-
-        //val service = BlockService(this)
-        //speechToText = service.speechToText()
 
         return try {
 

@@ -13,18 +13,6 @@ class TextToSpeechHandler(context: Context, val locale: Locale): TextToSpeechToo
     private val flag : Boolean = false
     private val tss : Tss = Tss()
     private val speaker : TextToSpeech = TextToSpeech(context,tss)
-    /*private val speaker = TextToSpeech(context, object: TextToSpeech.OnInitListener {
-
-        override fun onInit(status: Int) {
-            Log.d("Speak", "OnInit")
-            if (status == TextToSpeech.SUCCESS) {
-                Log.d("Speak", "status: $status")
-            }else{
-                Log.e("TTS", "Initilization Failed!")
-            }
-        }
-    })*/
-
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun speak(text: String) {

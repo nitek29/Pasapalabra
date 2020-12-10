@@ -35,7 +35,6 @@ class PasapalabraViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     internal fun cancelWork() {
-        //workManager.cancelUniqueWork(PASAPALABRA_WORK_NAME)
         workManager.cancelAllWork()
     }
 
