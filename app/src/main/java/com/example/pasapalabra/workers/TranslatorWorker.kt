@@ -30,7 +30,6 @@ class TranslatorWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, par
     private var translated: String? = null
     private var tts_flag: Boolean = false
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun doWork(): Result {
 
 
