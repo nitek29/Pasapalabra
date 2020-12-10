@@ -161,27 +161,27 @@ class PasapalabraActivity : AppCompatActivity() {
                 if (listOfWorkInfo[workInfo].state.isFinished) {
                     // Normally this processing, which is not directly related to drawing views on
                     // screen would be in the ViewModel. For simplicity we are keeping it here.
-                    var outputImageUri: String? = ""
+                    var outputText: String? = ""
                     if (TAG_TRANSLATOR in tag)  {
-                            outputImageUri = listOfWorkInfo[workInfo].outputData.getString(KEY_STT)
-                            if (!outputImageUri.isNullOrEmpty()) {
+                            outputText = listOfWorkInfo[workInfo].outputData.getString(KEY_STT)
+                            if (!outputText.isNullOrEmpty()) {
                                 pos = tag.split(TAG_TRANSLATOR)[1].toInt()
                                 Log.d("Activity", "TAG $tag \tpos ${(pos+1)}")
-                                toolchain.get(pos + 1).output = outputImageUri
-                                Log.d("Activity", "TAG : $tag\t workinfo :${pos + 1} \toutput : ${outputImageUri} \t lang ${toolchain.get(pos + 1).title}\t output : ${toolchain.get(pos + 1).output} ")
+                                toolchain.get(pos + 1).output = outputText
+                                Log.d("Activity", "TAG : $tag\t workinfo :${pos + 1} \toutput : ${outputText} \t lang ${toolchain.get(pos + 1).title}\t output : ${toolchain.get(pos + 1).output} ")
                             }
                         }else if (TAG_STT in tag) {
-                            outputImageUri = listOfWorkInfo[workInfo].outputData.getString(KEY_STT)
-                            if (!outputImageUri.isNullOrEmpty()) {
-                                toolchain.get(0).output = outputImageUri
-                                Log.d("Activity", "TAG : $tag\t workinfo :0\t output : ${outputImageUri} \t lang ${toolchain.get(0).title}\t output : ${toolchain.get(0).output} ")
+                            outputText = listOfWorkInfo[workInfo].outputData.getString(KEY_STT)
+                            if (!outputText.isNullOrEmpty()) {
+                                toolchain.get(0).output = outputText
+                                Log.d("Activity", "TAG : $tag\t workinfo :0\t output : ${outputText} \t lang ${toolchain.get(0).title}\t output : ${toolchain.get(0).output} ")
                             }
 
                         }else if (TAG_OUTPUT in tag){
-                            outputImageUri = listOfWorkInfo[workInfo].outputData.getString(KEY_TTS)
-                            if (!outputImageUri.isNullOrEmpty()) {
-                                toolchain.get(toolchain.size - 1).output = outputImageUri
-                                Log.d("Activity", "TAG : $tag\t workinfo : ${toolchain.size - 1}\t output : ${outputImageUri} \t lang ${toolchain.get(toolchain.size - 1).title}\t output : ${toolchain.get(toolchain.size - 1).output} ")
+                            outputText = listOfWorkInfo[workInfo].outputData.getString(KEY_TTS)
+                            if (!outputText.isNullOrEmpty()) {
+                                toolchain.get(toolchain.size - 1).output = outputText
+                                Log.d("Activity", "TAG : $tag\t workinfo : ${toolchain.size - 1}\t output : ${outputText} \t lang ${toolchain.get(toolchain.size - 1).title}\t output : ${toolchain.get(toolchain.size - 1).output} ")
                             }
                         }
                     }
