@@ -10,6 +10,7 @@ interface ToolDisplay {
     val title: String
     var input: String
     var output: String
+    var code: String
 }
 
 class ToolChain(list: List<ToolDisplay> = emptyList()) {

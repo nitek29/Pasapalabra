@@ -59,6 +59,7 @@ class SpeechRecognizerHandler(context: Context, locale: Locale): SpeechToTextToo
     override fun start(listener: SpeechToTextTool.Listener) {
         this.listener = listener
         speechRecognizer.startListening(intent)
+
     }
 
     override fun stop() {

@@ -3,6 +3,8 @@ package com.example.pasapalabra.tools.impl
 import android.content.Context
 import android.util.Log
 import com.example.pasapalabra.tools.TranslationTool
+import com.google.android.gms.tasks.Task
+import com.google.android.gms.tasks.Tasks
 import com.google.mlkit.common.model.DownloadConditions
 import com.google.mlkit.nl.translate.Translation
 import com.google.mlkit.nl.translate.TranslatorOptions
@@ -21,15 +23,20 @@ class TranslatorHandler(context: Context, from: Locale, to: Locale): Translation
                                 .requireWifi()
                                 .build()
 
-    init {  translator.downloadModelIfNeeded(conditions)
+    init { var res =translator.downloadModelIfNeeded(conditions)
                 .addOnSuccessListener { Log.d("Translation", "download completed") }
                 .addOnFailureListener { e -> Log.e("Translation", "Download failed ", e) }
+        Tasks.await(res)
     }
 
     override fun translate(text: String, callback: (String) -> Unit) {
-        translator.translate(text)
+        //Log.d("Translator handler", "Translate handler "+text)
+
+        var res : Task<String>
+        res =translator.translate(text)
             .addOnSuccessListener(callback)
-            .addOnFailureListener { e -> Log.e("Translation", "Translation falied", e) }
+            .addOnFailureListener { e -> Log.e("Translation", "Translation failed", e) }
+        Tasks.await(res)
     }
 
     override fun close() {
