@@ -1,4 +1,4 @@
-package com.example.pasapalabra.tools.impl
+package fr.enssat.pasapalabra.bosquet_galliou.tools.impl
 
 import android.content.Context
 import android.content.Intent
@@ -7,7 +7,7 @@ import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.util.Log
-import com.example.pasapalabra.tools.SpeechToTextTool
+import fr.enssat.pasapalabra.bosquet_galliou.tools.SpeechToTextTool
 import java.lang.IllegalStateException
 import java.util.*
 

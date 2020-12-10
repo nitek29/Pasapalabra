@@ -1,4 +1,4 @@
-package com.example.pasapalabra.tools.ui
+package fr.enssat.pasapalabra.bosquet_galliou.tools.ui
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView

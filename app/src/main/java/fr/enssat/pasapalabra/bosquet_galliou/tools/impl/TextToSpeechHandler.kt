@@ -1,11 +1,10 @@
-package com.example.pasapalabra.tools.impl
+package fr.enssat.pasapalabra.bosquet_galliou.tools.impl
 import android.content.Context
 import android.os.Build
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import androidx.annotation.RequiresApi
-import com.example.pasapalabra.tools.TextToSpeechTool
-import com.google.android.gms.tasks.Task
+import fr.enssat.pasapalabra.bosquet_galliou.tools.TextToSpeechTool
 import java.lang.Thread.sleep
 import java.util.*
 

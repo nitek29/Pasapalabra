@@ -1,11 +1,10 @@
-package com.example.pasapalabra.tools
+package fr.enssat.pasapalabra.bosquet_galliou.tools
 
 import android.content.Context
 import androidx.work.Worker
-import com.example.pasapalabra.tools.impl.SpeechRecognizerHandler
-import com.example.pasapalabra.tools.impl.TextToSpeechHandler
-import com.example.pasapalabra.tools.impl.TranslatorHandler
-import com.google.android.gms.tasks.Task
+import fr.enssat.pasapalabra.bosquet_galliou.tools.impl.SpeechRecognizerHandler
+import fr.enssat.pasapalabra.bosquet_galliou.tools.impl.TextToSpeechHandler
+import fr.enssat.pasapalabra.bosquet_galliou.tools.impl.TranslatorHandler
 
 import java.util.Locale
 
@@ -32,7 +31,7 @@ interface SpeechToTextTool {
 
 class BlockService(val worker : Worker){//val context: Context) {
 
-    fun textToSpeech():TextToSpeechTool {
+    fun textToSpeech(): TextToSpeechTool {
         val locale = Locale.getDefault()
         return TextToSpeechHandler(worker.applicationContext, locale)
     }
@@ -46,7 +45,7 @@ class BlockService(val worker : Worker){//val context: Context) {
 
 class BlockServiceContext(val context: Context) {
 
-    fun textToSpeech(lang : String):TextToSpeechTool {
+    fun textToSpeech(lang : String): TextToSpeechTool {
         //val locale = Locale.getDefault()
         val locale = Locale(lang)
         return TextToSpeechHandler(context.applicationContext, locale)

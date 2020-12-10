@@ -1,4 +1,4 @@
-package com.example.pasapalabra
+package fr.enssat.pasapalabra.bosquet_galliou
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -16,13 +16,14 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.work.WorkInfo
-import com.example.pasapalabra.tools.BlockServiceContext
-import com.example.pasapalabra.tools.SpeechToTextTool
-import com.example.pasapalabra.tools.ui.*
+import fr.enssat.pasapalabra.bosquet_galliou.tools.BlockServiceContext
+import fr.enssat.pasapalabra.bosquet_galliou.tools.SpeechToTextTool
 import kotlinx.android.synthetic.main.activity_tool_chain.*
 import java.util.*
 import kotlin.collections.ArrayList
 import androidx.lifecycle.Observer
+import com.example.pasapalabra.R
+import fr.enssat.pasapalabra.bosquet_galliou.tools.ui.*
 
 class PasapalabraActivity : AppCompatActivity() {
     val handler = Handler(Looper.getMainLooper())
@@ -112,7 +113,7 @@ class PasapalabraActivity : AppCompatActivity() {
             //viewModel.outputWorkInfosTT.observe(this, workInfosObserver(this.toolChain, TAG_TRANSLATOR))
             viewModel.outputWorkInfosTTS.observe(this, workInfosObserver(this.toolChain, TAG_OUTPUT))
             for (i in 0 until viewModel.workerList.size-1) {
-                viewModel.workerList[i].observe(this, workInfosObserver(this.toolChain, TAG_TRANSLATOR+i.toString()))
+                viewModel.workerList[i].observe(this, workInfosObserver(this.toolChain, TAG_TRANSLATOR +i.toString()))
             }
             viewModel.workerList.clear()
 

@@ -1,4 +1,4 @@
-package com.example.pasapalabra.workers
+package fr.enssat.pasapalabra.bosquet_galliou.workers
 
 import android.content.Context
 import android.text.TextUtils
@@ -6,16 +6,12 @@ import android.util.Log
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
-import com.example.pasapalabra.KEY_STT
-import com.example.pasapalabra.KEY_TT
-import com.example.pasapalabra.KEY_TTS
-import com.example.pasapalabra.tools.BlockService
-import com.example.pasapalabra.tools.BlockServiceContext
-import com.example.pasapalabra.tools.TextToSpeechTool
-import kotlinx.android.synthetic.main.activity_text_to_speech.*
+import fr.enssat.pasapalabra.bosquet_galliou.KEY_TT
+import fr.enssat.pasapalabra.bosquet_galliou.KEY_TTS
+import fr.enssat.pasapalabra.bosquet_galliou.tools.BlockServiceContext
+import fr.enssat.pasapalabra.bosquet_galliou.tools.TextToSpeechTool
 import timber.log.Timber
 import java.lang.Thread.sleep
-import java.util.logging.Handler
 
 class TextToSpeechWorker (ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
     override fun doWork(): Result {

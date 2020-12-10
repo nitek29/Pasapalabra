@@ -1,30 +1,18 @@
-package com.example.pasapalabra.workers
+package fr.enssat.pasapalabra.bosquet_galliou.workers
 
 import android.content.Context
 import android.os.Build
 import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.ViewModelProvider
 import androidx.work.*
-import com.example.pasapalabra.*
-import com.example.pasapalabra.R
-import com.example.pasapalabra.tools.BlockService
-import com.example.pasapalabra.tools.BlockServiceContext
-import com.example.pasapalabra.tools.TranslationTool
-import com.google.android.gms.tasks.Task
-import com.google.android.gms.tasks.Tasks
-import com.google.mlkit.common.model.DownloadConditions
-import com.google.mlkit.nl.translate.TranslateLanguage
-import com.google.mlkit.nl.translate.Translation
-import com.google.mlkit.nl.translate.TranslatorOptions
-import kotlinx.android.synthetic.main.activity_translator.*
+import fr.enssat.pasapalabra.bosquet_galliou.tools.BlockService
+import fr.enssat.pasapalabra.bosquet_galliou.tools.TranslationTool
+import fr.enssat.pasapalabra.bosquet_galliou.KEY_STT
+import fr.enssat.pasapalabra.bosquet_galliou.KEY_TT
 import timber.log.Timber
 import java.lang.Thread.sleep
 import java.util.*
-import javax.security.auth.callback.Callback
-import kotlin.collections.HashMap
-import kotlin.system.exitProcess
 
 class TranslatorWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
     private var translated: String? = null
