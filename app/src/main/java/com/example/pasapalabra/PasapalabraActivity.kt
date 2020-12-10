@@ -122,8 +122,11 @@ class PasapalabraActivity : AppCompatActivity() {
         record_button.visibility = View.GONE
         record_button.setOnTouchListener { v, event ->
             this.toolChain = toolChain
+            // Arrête les workers en cours avant de lancer les nouveaux
             viewModel.cancelWork()
+
             Log.d("Activity", "toolchain size ${this.toolChain.size}")
+            // mise en place des observers sur les workers
             viewModel.outputWorkInfosSTT.observe(this, workInfosObserver(this.toolChain, TAG_STT))
             //viewModel.outputWorkInfosTT.observe(this, workInfosObserver(this.toolChain, TAG_TRANSLATOR))
             viewModel.outputWorkInfosTTS.observe(this, workInfosObserver(this.toolChain, TAG_OUTPUT))
@@ -131,8 +134,9 @@ class PasapalabraActivity : AppCompatActivity() {
                 viewModel.workerList[i].observe(this, workInfosObserver(this.toolChain, TAG_TRANSLATOR+i.toString()))
             }
             viewModel.workerList.clear()
-            //createLanguagesInputData(toolChain)
+
             speechToText = service.speechToText(Locale(toolChain.get(0).code))
+
             if (event.action == MotionEvent.ACTION_DOWN) {
                 Log.d("Reco UI", "Button pressed")
                 v.performClick()

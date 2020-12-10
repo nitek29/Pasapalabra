@@ -37,6 +37,7 @@ class TranslatorWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, par
         Log.d("Translator Worker", "Start Translator Worker")
         val appContext = applicationContext
         lateinit var translator: TranslationTool
+
         val stt = inputData.getString(KEY_STT)
         Log.d("Translator Worker", "stt =$stt")
 
@@ -50,8 +51,6 @@ class TranslatorWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, par
         }
 
         val service = BlockService(this)
-        //translator = service.translator(Locale.FRENCH, Locale.ENGLISH)
-
         Log.d("Translator Worker", "Lang src : ${Locale(src)} \t Lang dst : ${Locale(dst)}")
         translator = service.translator(Locale(src), Locale(dst))
         sleep(1500)
