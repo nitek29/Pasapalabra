@@ -1,4 +1,4 @@
-package com.example.pasapalabra
+package fr.enssat.pasapalabra.bosquet_galliou
 
 import org.junit.Test
 

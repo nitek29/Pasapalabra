@@ -1,8 +1,8 @@
-package com.example.pasapalabra.tools.impl
+package fr.enssat.pasapalabra.bosquet_galliou.tools.impl
 
 import android.content.Context
 import android.util.Log
-import com.example.pasapalabra.tools.TranslationTool
+import fr.enssat.pasapalabra.bosquet_galliou.tools.TranslationTool
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
 import com.google.mlkit.common.model.DownloadConditions

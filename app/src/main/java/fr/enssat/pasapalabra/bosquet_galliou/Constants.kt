@@ -1,5 +1,5 @@
 @file:JvmName("Constants")
-package com.example.pasapalabra
+package fr.enssat.pasapalabra.bosquet_galliou
 
 // Notification Channel constants
 

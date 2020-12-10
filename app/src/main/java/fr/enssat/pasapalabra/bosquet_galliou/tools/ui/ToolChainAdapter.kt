@@ -1,4 +1,4 @@
-package com.example.pasapalabra.tools.ui
+package fr.enssat.pasapalabra.bosquet_galliou.tools.ui
 
 import android.graphics.Color
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.example.pasapalabra.tools.ui
+package fr.enssat.pasapalabra.bosquet_galliou.tools.ui
 
 interface Tool {
     fun run(input: String, callback: (String) -> Unit)

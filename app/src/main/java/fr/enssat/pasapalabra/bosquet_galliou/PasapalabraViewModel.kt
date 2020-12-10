@@ -1,17 +1,15 @@
-package com.example.pasapalabra
+package fr.enssat.pasapalabra.bosquet_galliou
 
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.work.*
-import com.example.pasapalabra.tools.SpeechToTextTool
-import com.example.pasapalabra.tools.ui.ToolChain
-import com.example.pasapalabra.workers.SpeechRecognizerWorker
-import com.example.pasapalabra.workers.TextToSpeechWorker
-import com.example.pasapalabra.workers.TranslatorWorker
-import java.util.*
+import fr.enssat.pasapalabra.bosquet_galliou.tools.SpeechToTextTool
+import fr.enssat.pasapalabra.bosquet_galliou.tools.ui.ToolChain
+import fr.enssat.pasapalabra.bosquet_galliou.workers.SpeechRecognizerWorker
+import fr.enssat.pasapalabra.bosquet_galliou.workers.TextToSpeechWorker
+import fr.enssat.pasapalabra.bosquet_galliou.workers.TranslatorWorker
 import kotlin.collections.ArrayList
 
 class PasapalabraViewModel(application: Application) : AndroidViewModel(application) {
@@ -104,12 +102,12 @@ class PasapalabraViewModel(application: Application) : AndroidViewModel(applicat
 
         this.lang_number = languages.size
         for ( i in 0 until this.lang_number -1){
-Log.d("ViewModel","TAG_TRANSLATION : ${TAG_TRANSLATOR+i.toString()}\t langues ${languages.size}")
+Log.d("ViewModel","TAG_TRANSLATION : ${TAG_TRANSLATOR +i.toString()}\t langues ${languages.size}")
             val translatorBuilder = OneTimeWorkRequestBuilder<TranslatorWorker>()
-                    .addTag(TAG_TRANSLATOR+i.toString())
+                    .addTag(TAG_TRANSLATOR +i.toString())
             translatorBuilder.setInputData(createSTTInputData(languages.get(i).code,languages.get(i+1).code,i))
             var ttWorker = translatorBuilder.build()
-            this.workerList.add(workManager.getWorkInfosByTagLiveData(TAG_TRANSLATOR+i.toString()))
+            this.workerList.add(workManager.getWorkInfosByTagLiveData(TAG_TRANSLATOR +i.toString()))
             continuation = continuation.then(ttWorker)
         }
 
