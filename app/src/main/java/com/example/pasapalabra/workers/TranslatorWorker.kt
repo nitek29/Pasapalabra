@@ -69,6 +69,7 @@ class TranslatorWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, par
                 tt = enText
             }
             sleep(1000)
+
             if (this.translated.isNullOrEmpty()) {
                 this.translated = tt
             }
